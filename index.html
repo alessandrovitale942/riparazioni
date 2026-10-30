@@ -123,6 +123,59 @@ textarea.inp { resize: vertical; min-height: 65px; }
 .sbox { background: #141414; border: 1px solid #222; border-radius: 10px; padding: 20px; margin-bottom: 16px; }
 .sbox-t { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #222; }
 </style>
+<style id="ui-v2">
+:root{--ink:#0c0e13;--panel:#141821;--panel2:#1a1f2b;--line:#252c3b;--amber:#ff7a1a;--mint:#34d3a0;--sky:#5b8cff;--mute:#8b94a7}
+body{background:radial-gradient(1100px 480px at 88% -8%,rgba(255,122,26,.11),transparent 60%),var(--ink);color:#eef1f6}
+.sidebar{background:linear-gradient(180deg,#121620,#0e1118);border-right:1px solid var(--line)}
+.logo{border-bottom:1px solid var(--line);padding:22px 18px}
+.logo-icon{background:linear-gradient(135deg,#ff4d2e,#ffa23a);border-radius:12px;box-shadow:0 6px 18px rgba(255,100,30,.35)}
+.logo-sub{font-family:'DM Sans',sans-serif;color:var(--mute);font-size:11px}
+.nav-btn{border-radius:10px;padding:10px 12px;color:var(--mute)}
+.nav-btn:hover{background:var(--panel2);color:#fff}
+.nav-btn.on{background:rgba(255,122,26,.14);color:#ffb273;box-shadow:inset 3px 0 0 var(--amber)}
+.main{padding:34px 38px;max-width:1500px}
+.page-title{font-size:26px;letter-spacing:-.02em}
+.btn{border-radius:10px;padding:9px 18px}
+.btn-sm{padding:6px 12px}
+.btn-p{background:linear-gradient(135deg,#ff5a2a,#ff8a1f);box-shadow:0 6px 16px rgba(255,100,30,.28)}
+.btn-p:hover{filter:brightness(1.1)}
+.btn-g{background:var(--panel2);border-color:var(--line)}
+.card,.sbox{background:var(--panel);border:1px solid var(--line);border-radius:16px}
+.card-h{background:transparent;border-bottom:1px solid var(--line);padding:16px 20px}
+.card-t,.sbox-t{font-size:15px;border-color:var(--line)}
+.stats{gap:16px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.stat::before{top:auto;left:auto;right:-26px;bottom:-26px;width:100px;height:100px;border-radius:50%;filter:blur(26px);opacity:.4}
+.stat-l{font:500 13px 'DM Sans',sans-serif;text-transform:none;letter-spacing:0;color:var(--mute)}
+.stat-v{font-size:38px;letter-spacing:-.03em;margin-top:2px}
+#d-alert>div[style*="grid"]>div{background:var(--panel)!important;border-color:var(--line)!important;border-radius:16px!important;padding:18px 22px!important}
+th{font:500 12px 'DM Sans',sans-serif;text-transform:none;letter-spacing:0;color:var(--mute);padding:12px 18px;border-bottom:1px solid var(--line)}
+td{padding:13px 18px;border-bottom:1px solid #1b2130}
+tr:hover td{background:rgba(255,255,255,.03)}
+.badge{font-family:'DM Sans',sans-serif;padding:3px 11px}
+.inp{background:#0f131b;border-color:var(--line);border-radius:10px;padding:10px 13px}
+.inp:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,122,26,.16)}
+.fl{font-family:'DM Sans',sans-serif;text-transform:none;letter-spacing:0;font-size:12px}
+.modal-bg{background:rgba(6,8,12,.78);backdrop-filter:blur(6px)}
+.modal{background:var(--panel);border-color:var(--line);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.modal-hd{background:var(--panel);border-color:var(--line)}.modal-ft{border-color:var(--line)}
+#modal-s .modal-b{background:var(--ink);padding:24px}
+#scheda-body>div{box-shadow:0 18px 50px rgba(0,0,0,.5)}
+button:focus-visible,.inp:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.hero{background:linear-gradient(135deg,#1c2232,#141821 62%);border:1px solid var(--line);border-radius:20px;padding:26px 28px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-60px;top:-90px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,122,26,.3),transparent 65%);pointer-events:none}
+.hero-hi{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.02em}
+.hero-d{color:var(--mute);font-size:14px;margin-top:4px;text-transform:capitalize}
+.hero-bar{display:flex;gap:4px;height:14px;margin:22px 0 12px;position:relative;z-index:1}
+.hero-bar i{display:block;border-radius:7px;transform-origin:left;animation:hgrow .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes hgrow{from{transform:scaleX(0)}}
+.hero-leg{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:#c6ccd8;position:relative;z-index:1}
+.hero-leg b{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:7px}
+.hero-leg em{font-style:normal;font-weight:700;color:#fff;margin-left:3px}
+.hero-act{display:flex;gap:10px;margin-top:20px;position:relative;z-index:1;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){.hero-bar i{animation:none}}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -163,6 +216,7 @@ textarea.inp { resize: vertical; min-height: 65px; }
     <div class="page-title">Dashboard <small>Panoramica</small></div>
     <button class="btn btn-o btn-sm" onclick="toggleN()">Notifiche <span id="nb-cnt2"></span></button>
   </div>
+  <div id="d-hero"></div>
   <div id="d-alert"></div>
   <div class="stats" id="d-stats"></div>
   <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px">
@@ -1791,9 +1845,9 @@ function schemaSVG(schemaStr) {
 }
 
 function box(lbl, val) {
-  return '<div style="background:#f9f9f9;padding:9px;border-radius:7px;border:1px solid #eee">'
-    + '<div style="font-size:9px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">' + lbl + '</div>'
-    + '<div style="font-weight:600;font-size:13px">' + (val || '-') + '</div></div>';
+  return '<div style="padding:3px 0 3px 12px;border-left:3px solid #ffd2b0">'
+    + '<div style="font-size:11px;color:#8a8f9c;margin-bottom:2px">' + lbl + '</div>'
+    + '<div style="font-weight:700;font-size:14px;color:#14171d;word-break:break-word">' + (val || '-') + '</div></div>';
 }
 
 var scedaAttivaId = null;
@@ -1817,14 +1871,15 @@ function apriScheda(id) {
       + schemaHtml
     + '</div>'
     + '</div>';
-  var html = '<div style="background:white;color:#111;font-family:Arial,sans-serif;padding:22px;border-radius:10px">'
+  var html = '<div style="background:white;color:#111;font-family:Arial,sans-serif;padding:26px 24px;border-radius:14px;border-top:8px solid #ff7a1a">'
     + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:3px solid #ff5500">'
       + '<div>'
-        + '<div style="font-size:20px;font-weight:800;color:#ff5500;font-family:Syne,sans-serif">' + SET.nome + '</div>'
+        + '<div style="display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:12px;background:#14171d;color:#ff9a4d;font:800 22px Syne,Arial,sans-serif;display:flex;align-items:center;justify-content:center">' + String(SET.nome || 'R').charAt(0).toUpperCase() + '</div><div style="font-size:22px;font-weight:800;color:#14171d;font-family:Syne,Arial,sans-serif">' + SET.nome + '</div></div>'
         + '<div style="font-size:11px;color:#999">' + (SET.slogan || '') + (SET.ind ? ' - ' + SET.ind : '') + '</div>'
       + '</div>'
       + '<div style="text-align:right">'
-        + '<div style="font-size:20px;font-weight:800;color:#ff5500">SCHEDA #' + r.id + '</div>'
+        + '<div style="font-size:22px;font-weight:800;color:#14171d;font-family:Syne,Arial,sans-serif">Scheda n. ' + String(r.id).padStart(4, '0') + '</div>'
+        + '<div style="margin:4px 0"><span style="display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;background:' + ({'Pronto':'#16a34a','Consegnato':'#2563eb','In lavorazione':'#ea580c'}[r.stato] || '#6b7280') + '">' + (r.stato || 'Ricevuta') + '</span></div>'
         + '<div style="font-size:12px;color:#999">' + r.data + '</div>'
         + (r.consegna ? '<div style="font-size:12px;color:#ff5500;font-weight:600">Consegna: ' + r.consegna + '</div>' : '')
         + (r.dataConsegnato ? '<div style="font-size:12px;font-weight:700;color:#22c55e">&#10003; Consegnato il: ' + r.dataConsegnato + '</div>' : '')
@@ -1840,9 +1895,9 @@ function apriScheda(id) {
       + box('Tipo Intervento', r.tipo) + box('Condizione Estetica', r.estetica) + box('Accessori', r.accessori)
     + '</div>'
     + '<div style="display:grid;grid-template-columns:1fr;gap:9px;margin-bottom:12px">'
-      + '<div style="background:#fff8f5;padding:9px;border-radius:7px;border:1px solid #ffddcc">'
-        + '<div style="font-size:9px;color:#ff5500;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Preventivo</div>'
-        + '<div style="font-weight:700;font-size:16px;color:#ff5500">' + (r.costo ? 'EUR ' + parseFloat(r.costo).toFixed(2) : 'Da definire') + '</div>'
+      + '<div style="background:#14171d;padding:14px 20px;border-radius:12px;display:flex;justify-content:space-between;align-items:center">'
+        + '<div style="font-size:13px;color:#aab1c0">Preventivo</div>'
+        + '<div style="font-weight:800;font-size:28px;color:#ff9a4d;font-family:Syne,Arial,sans-serif">' + (r.costo ? 'EUR ' + parseFloat(r.costo).toFixed(2) : 'Da definire') + '</div>'
       + '</div>'
     + '</div>'
     + sbl
@@ -2065,7 +2120,29 @@ function renderNotif() {
 // ============================================================
 // DASHBOARD
 // ============================================================
+function renderHero() {
+  var el = document.getElementById('d-hero'); if (!el) return;
+  var hr = new Date().getHours();
+  var sal = hr < 13 ? 'Buongiorno' : (hr < 18 ? 'Buon pomeriggio' : 'Buonasera');
+  var conta = {}, n = RL.length;
+  for (var i = 0; i < n; i++) conta[RL[i].stato] = (conta[RL[i].stato] || 0) + 1;
+  var col = {'In lavorazione':'#ff7a1a','Ricambio ordinato':'#f5c542','Pronto':'#34d3a0','Consegnato':'#5b8cff'};
+  var seg = '', leg = '';
+  Object.keys(conta).forEach(function(k) {
+    var c = col[k] || '#6b7385';
+    seg += '<i style="flex:' + conta[k] + ';background:' + c + '" title="' + k + '"></i>';
+    leg += '<span><b style="background:' + c + '"></b>' + k + '<em>' + conta[k] + '</em></span>';
+  });
+  el.innerHTML = '<div class="hero"><div class="hero-hi">' + sal + ', ' + SET.nome + '</div>'
+    + '<div class="hero-d">' + new Date().toLocaleDateString('it-IT', {weekday:'long', day:'numeric', month:'long'}) + '</div>'
+    + '<div class="hero-bar">' + (n ? seg : '<i style="flex:1;background:#252c3b"></i>') + '</div>'
+    + '<div class="hero-leg">' + (n ? leg : '<span>Nessuna riparazione: parti dalla prima scheda.</span>') + '</div>'
+    + '<div class="hero-act"><button class="btn btn-p" onclick="var b=document.querySelector(\'button[onclick*=&quot;modal-r&quot;]:not([onclick*=chiudiM])\');if(b){b.click()}else{apriM(\'modal-r\')}">+ Nuova riparazione</button>'
+    + '<button class="btn btn-g" onclick="vai(\'riparazioni\',null)">Tutte le schede</button></div></div>';
+}
+
 function renderDash() {
+  renderHero();
   var oggi = new Date(); oggi.setHours(0,0,0,0);
   var inLav = 0, pronti = 0, ricOrd = 0;
   for (var i = 0; i < RL.length; i++) {
