@@ -21,16 +21,6 @@ body { background: #0a0a0a; color: #f0f0f0; font-family: 'DM Sans', sans-serif; 
 .nav-btn { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border-radius: 7px; cursor: pointer; font-size: 13px; color: #888; margin-bottom: 2px; border: none; background: none; width: 100%; text-align: left; transition: all 0.15s; }
 .nav-btn:hover { background: #1a1a1a; color: #fff; }
 .nav-btn.on { background: linear-gradient(90deg, #ff2200, #ff5500); color: #fff; font-weight: 600; }
-.nav-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: #444; font-family: 'DM Mono', monospace; padding: 14px 11px 6px; }
-
-/* QUICK ACTIONS */
-.qa-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
-.qa-btn { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 12px; border: 1px solid #222; background: #111; cursor: pointer; text-align: left; transition: all .15s; }
-.qa-btn:hover { border-color: #ff5500; background: #161311; transform: translateY(-1px); }
-.qa-ic { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; background: linear-gradient(135deg, #ff2200, #ff8800); }
-.qa-tx { font-size: 12px; font-weight: 600; color: #f0f0f0; }
-.qa-sub { font-size: 10px; color: #666; margin-top: 1px; }
-@media (max-width: 900px) { .qa-row { grid-template-columns: repeat(2, 1fr); } }
 
 /* MAIN */
 .main { margin-left: 270px; flex: 1; padding: 28px 30px; }
@@ -76,7 +66,6 @@ tr:hover td { background: #1a1a1a; }
 .b-o { background: rgba(255,85,0,.15); color: #ff5500; border: 1px solid rgba(255,85,0,.3); }
 .b-g { background: rgba(64,208,128,.15); color: #40d080; border: 1px solid rgba(64,208,128,.3); }
 .b-r { background: rgba(255,34,0,.15); color: #ff4444; border: 1px solid rgba(255,34,0,.3); }
-.b-b { background: rgba(64,128,255,.15); color: #4080ff; border: 1px solid rgba(64,128,255,.3); }
 
 /* INPUT */
 .inp { background: #141414; border: 1px solid #333; color: #f0f0f0; padding: 8px 12px; border-radius: 7px; font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; transition: border 0.15s; width: 100%; }
@@ -152,22 +141,14 @@ textarea.inp { resize: vertical; min-height: 65px; }
   </div>
   <nav class="nav">
     <button class="nav-btn on" id="nb-dashboard"    onclick="vai('dashboard',this)">&#128202; Dashboard</button>
-
-    <div class="nav-lbl">Operativo</div>
     <button class="nav-btn"    id="nb-riparazioni"  onclick="vai('riparazioni',this)">&#128295; Riparazioni</button>
     <button class="nav-btn"    id="nb-preventivi"   onclick="vai('preventivi',this)">&#129302; Assistente Preventivi</button>
-    <button class="nav-btn"    id="nb-ordini"       onclick="vai('ordini',this)">&#128666; Ordini Clienti <span id="nb-ordini-cnt" style="background:#4080ff;color:#fff;font-size:10px;font-weight:700;border-radius:10px;padding:1px 6px;margin-left:4px;display:none">0</span></button>
-
-    <div class="nav-lbl">Anagrafica &amp; Magazzino</div>
     <button class="nav-btn"    id="nb-clienti"      onclick="vai('clienti',this)">&#128101; Clienti</button>
     <button class="nav-btn"    id="nb-magazzino"    onclick="vai('magazzino',this)">&#128230; Magazzino</button>
-
-    <div class="nav-lbl">Report</div>
+    <button class="nav-btn"    id="nb-ordini"       onclick="vai('ordini',this)">&#128666; Ordini Clienti <span id="nb-ordini-cnt" style="background:#4080ff;color:#fff;font-size:10px;font-weight:700;border-radius:10px;padding:1px 6px;margin-left:4px;display:none">0</span></button>
     <button class="nav-btn"    id="nb-fatture"      onclick="vai('fatture',this)">&#129534; Fatture</button>
     <button class="nav-btn"    id="nb-statistiche"  onclick="vai('statistiche',this)">&#128200; Statistiche</button>
     <button class="nav-btn"    id="nb-storico"      onclick="vai('storico',this)">&#128203; Storico</button>
-
-    <div class="nav-lbl">Sistema</div>
     <button class="nav-btn"    onclick="toggleN()">&#128276; Notifiche <span id="nb-cnt" style="background:#ff8800;color:#000;font-size:10px;font-weight:700;border-radius:10px;padding:1px 6px;margin-left:auto;display:none">0</span></button>
     <button class="nav-btn"    id="nb-impostazioni" onclick="vai('impostazioni',this)">&#9881; Impostazioni</button>
   </nav>
@@ -181,12 +162,6 @@ textarea.inp { resize: vertical; min-height: 65px; }
   <div class="page-h">
     <div class="page-title">Dashboard <small>Panoramica</small></div>
     <button class="btn btn-o btn-sm" onclick="toggleN()">Notifiche <span id="nb-cnt2"></span></button>
-  </div>
-  <div class="qa-row">
-    <button class="qa-btn" onclick="mostraModaleR()"><div class="qa-ic">&#128295;</div><div><div class="qa-tx">Nuova Riparazione</div><div class="qa-sub">Apri una nuova scheda</div></div></button>
-    <button class="qa-btn" onclick="vai('preventivi',null)"><div class="qa-ic">&#129302;</div><div><div class="qa-tx">Nuovo Preventivo</div><div class="qa-sub">Genera dal listino</div></div></button>
-    <button class="qa-btn" onclick="vai('clienti',null)"><div class="qa-ic">&#128101;</div><div><div class="qa-tx">Cerca Cliente</div><div class="qa-sub">Anagrafica</div></div></button>
-    <button class="qa-btn" onclick="vai('magazzino',null)"><div class="qa-ic">&#128230;</div><div><div class="qa-tx">Magazzino</div><div class="qa-sub">Controlla scorte</div></div></button>
   </div>
   <div id="d-alert"></div>
   <div class="stats" id="d-stats"></div>
@@ -273,10 +248,7 @@ textarea.inp { resize: vertical; min-height: 65px; }
 <section id="sec-magazzino" class="sec">
   <div class="page-h">
     <div class="page-title">Magazzino</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
     <button class="btn btn-p" id="mag-btn-add" onclick="mostraModaleM()">+ Aggiungi Pezzo</button>
-    <button class="btn btn-g" onclick="apriCorrezionePrezzi()" style="border-color:#ff8800;color:#ff8800">&#128207; Correggi Prezzi in Blocco</button>
-    </div>
   </div>
   <div class="card" style="padding:14px 18px;margin-bottom:14px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
@@ -298,64 +270,6 @@ textarea.inp { resize: vertical; min-height: 65px; }
     <table><thead><tr><th>Codice</th><th>Descrizione</th><th>Cat.</th><th>Qta</th><th>P.Acq EUR</th><th>P.Vend EUR</th><th>Azioni</th></tr></thead><tbody id="mag-tb"></tbody></table>
   </div>
 </section>
-
-<!-- CORREZIONE PREZZI IN BLOCCO (modal) -->
-<div class="modal-bg" id="modal-correzione">
-  <div class="modal" style="max-width:640px">
-    <div class="modal-h">
-      <div class="modal-t">&#128207; Correggi Prezzi in Blocco</div>
-      <button class="btn-x" onclick="chiudiM('modal-correzione')">&times;</button>
-    </div>
-    <div style="padding:18px">
-      <div style="font-size:12px;color:#888;margin-bottom:14px">Modifica solo gli articoli del tuo Magazzino. Il Listino Ufficiale non viene mai toccato da qui.</div>
-      <div style="font-weight:700;font-size:12px;margin-bottom:8px;color:#ff8800">1. Seleziona quali articoli</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-        <select class="inp" id="cp-cat" style="width:180px">
-          <option value="">Tutte le categorie</option>
-        </select>
-        <input class="inp" id="cp-testo" placeholder="Testo nella descrizione (opzionale)" style="flex:1;min-width:180px">
-        <input class="inp" id="cp-soglia" type="number" placeholder="Solo se P.Vend sotto EUR..." style="width:220px">
-      </div>
-      <div style="font-weight:700;font-size:12px;margin-bottom:8px;color:#ff8800">2. Che correzione applicare</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
-        <select class="inp" id="cp-azione" style="width:280px" onchange="document.getElementById('cp-valore').placeholder = this.value==='percentuale' ? 'es. 20 per +20%' : (this.value==='margine' ? 'es. 40 per margine 40% su P.Acq' : 'es. 5 per +5 EUR')">
-          <option value="percentuale">Aumenta P.Vend del... %</option>
-          <option value="margine">Imposta margine minimo su P.Acq... %</option>
-          <option value="fisso">Aggiungi importo fisso a P.Vend... EUR</option>
-        </select>
-        <input class="inp" id="cp-valore" type="number" placeholder="es. 20 per +20%" style="width:180px">
-      </div>
-      <div style="font-size:11px;color:#666;margin-bottom:16px">"Margine minimo su P.Acq" alza il P.Vend solo dove è sotto soglia (es. P.Acq 30 EUR + margine 40% = P.Vend minimo 42 EUR; se già più alto non lo abbassa).</div>
-      <button class="btn btn-g" onclick="anteprimaCorrezionePrezzi()" style="width:100%;margin-bottom:12px">&#128269; Vedi anteprima</button>
-      <div id="cp-preview"></div>
-    </div>
-  </div>
-</div>
-
-<!-- AGGIUNGI A LISTINO UFFICIALE (modal) -->
-<div class="modal-bg" id="modal-listino-add">
-  <div class="modal" style="max-width:480px">
-    <div class="modal-h">
-      <div class="modal-t">&#129689; Aggiungi al Listino Ufficiale</div>
-      <button class="btn-x" onclick="chiudiM('modal-listino-add')">&times;</button>
-    </div>
-    <div style="padding:18px">
-      <div class="fg"><label class="fl">Marca</label><input class="inp" id="la-brand"></div>
-      <div class="fg"><label class="fl">Modello / Descrizione ricambio</label><input class="inp" id="la-model"></div>
-      <div style="display:flex;gap:8px">
-        <div class="fg" style="flex:1"><label class="fl">Categoria</label><input class="inp" id="la-cat"></div>
-        <div class="fg" style="flex:1"><label class="fl">Tipo</label>
-          <select class="inp" id="la-tipo"><option>Originale</option><option>Compatibile</option></select>
-        </div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <div class="fg" style="flex:1"><label class="fl">P.Acq EUR</label><input class="inp" id="la-pac" type="number"></div>
-        <div class="fg" style="flex:1"><label class="fl">P.Vend EUR</label><input class="inp" id="la-pven" type="number"></div>
-      </div>
-      <button class="btn btn-p" style="width:100%" onclick="salvaAggiuntaListino()">Aggiungi al Listino</button>
-    </div>
-  </div>
-</div>
 
 <!-- LISTINO UFFICIALE (modal) -->
 <div class="modal-bg" id="modal-listino">
@@ -544,7 +458,7 @@ textarea.inp { resize: vertical; min-height: 65px; }
             <option>Aggiornamento software</option><option>Danni da liquidi</option><option>Danni da caduta</option>
           </select>
         </div>
-        <div class="fg"><label class="fl">Costo EUR</label><input class="inp" id="nr-costo" type="number" placeholder="0.00"><div id="nr-costo-breakdown" style="font-size:11px;color:#4080ff;margin-top:4px;font-family:'DM Mono',monospace;display:none"></div></div>
+        <div class="fg"><label class="fl">Costo EUR</label><input class="inp" id="nr-costo" type="number" placeholder="0.00"></div>
       </div>
       <div class="fr2">
         <div class="fg"><label class="fl">PIN / Codice Sblocco</label><input class="inp" id="nr-pin" placeholder="1234" style="font-family:monospace;letter-spacing:3px;font-size:16px"></div>
@@ -1254,9 +1168,6 @@ var CATALOGO = [
 {brand:'Notebook',model:'Connettore DC Jack alimentazione',cat:'Connettore',tipo:'Compatibile',pac:4,pven:12},
 ];
 
-// Voci aggiunte manualmente dal negozio, si sommano al Listino Ufficiale sopra senza mai modificarlo.
-var CATALOGO_EXTRA = JSON.parse(localStorage.getItem('rp_catalogo_extra') || 'null') || [];
-function CATALOGO_ALL() { return CATALOGO.concat(CATALOGO_EXTRA); }
 
 var ML = JSON.parse(localStorage.getItem('rp_ml') || 'null');
 if (!ML) {
@@ -1287,7 +1198,6 @@ function salva() {
   localStorage.setItem('rp_ml', JSON.stringify(ML));
   localStorage.setItem('rp_rid', String(RID));
   localStorage.setItem('rp_fid', String(FID));
-  localStorage.setItem('rp_catalogo_extra', JSON.stringify(CATALOGO_EXTRA));
 }
 
 // ============================================================
@@ -1327,7 +1237,7 @@ function showToast(t, b) {
 function badgeHtml(s) {
   var cls = {
     'In attesa': 'b-y', 'In lavorazione': 'b-o',
-    'Ricambio ordinato': 'b-o', 'Pronto': 'b-g', 'Consegnato': 'b-b'
+    'Ricambio ordinato': 'b-o', 'Pronto': 'b-g', 'Consegnato': 'b-r'
   };
   return '<span class="badge ' + (cls[s] || 'b-y') + '">' + s + '</span>';
 }
@@ -1567,8 +1477,6 @@ document.addEventListener('click', function(e) {
 function mostraModaleR() {
   apriM('modal-r');
   popolaSelectRicambi('nr');
-  var bd = document.getElementById('nr-costo-breakdown');
-  if (bd) { bd.style.display = 'none'; bd.textContent = ''; }
   setTimeout(function() {
     initGriglia('new');
     resetGriglia('new');
@@ -1974,40 +1882,40 @@ function stampaPOS() {
   var costo = r.costo ? 'EUR ' + parseFloat(r.costo).toFixed(2) : 'Da definire';
   var data  = new Date().toLocaleDateString('it-IT');
   var ora   = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-  var css = '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Courier New",Courier,monospace;font-size:12px;width:72mm;background:white;color:#000}@page{margin:3mm;size:80mm auto}.c{text-align:center}.b{font-weight:bold}.g{font-size:15px;font-weight:bold}.s{border-top:1px dashed #000;margin:4px 0}.s2{border-top:2px solid #000;margin:4px 0}.r{display:flex;justify-content:space-between;margin:2px 0}.lbl{color:#555;font-size:10px;text-transform:uppercase}.gc{font-size:20px;font-weight:900;text-align:center;margin:6px 0;letter-spacing:2px}</style>';
+  var css = '<style>*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}body{font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:16px;font-weight:700;line-height:1.3;width:72mm;background:white;color:#000;-webkit-text-stroke:0.3px #000}@page{margin:3mm;size:80mm auto}.c{text-align:center}.b{font-weight:900}.g{font-size:22px;font-weight:900}.s{border-top:2px dashed #000;margin:7px 0}.s2{border-top:3px solid #000;margin:7px 0}.r{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2px 8px;margin:3px 0}.lbl{color:#000;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}.gc{font-size:30px;font-weight:900;text-align:center;margin:8px 0;letter-spacing:1px}</style>';
   var h = '';
   h += '<div class="c g">' + SET.nome + '</div>';
-  if (SET.slogan) h += '<div class="c" style="font-size:10px">' + SET.slogan + '</div>';
-  if (SET.ind)    h += '<div class="c" style="font-size:10px">' + SET.ind + '</div>';
-  if (SET.tel)    h += '<div class="c" style="font-size:10px">Tel: ' + SET.tel + '</div>';
+  if (SET.slogan) h += '<div class="c" style="font-size:14px">' + SET.slogan + '</div>';
+  if (SET.ind)    h += '<div class="c" style="font-size:14px">' + SET.ind + '</div>';
+  if (SET.tel)    h += '<div class="c" style="font-size:15px">Tel: ' + SET.tel + '</div>';
   h += '<div class="s2"></div>';
   h += '<div class="r"><span class="b">SCHEDA #' + String(r.id).padStart(4, '0') + '</span><span>' + data + ' ' + ora + '</span></div>';
   h += '<div class="s"></div>';
-  h += '<div class="lbl">Cliente</div><div class="b" style="font-size:13px">' + (r.nome || '-') + '</div>';
+  h += '<div class="lbl">Cliente</div><div class="b" style="font-size:19px">' + (r.nome || '-') + '</div>';
   if (r.tel)   h += '<div>Tel: ' + r.tel + '</div>';
   if (r.email) h += '<div>' + r.email + '</div>';
   h += '<div class="s"></div>';
   h += '<div class="lbl">Dispositivo</div><div class="b">' + (r.device || '-') + '</div>';
-  if (r.imei) h += '<div style="font-size:10px">IMEI: ' + r.imei + '</div>';
+  if (r.imei) h += '<div style="font-size:14px">IMEI: ' + r.imei + '</div>';
   if (r.tipo) h += '<div>Intervento: ' + r.tipo + '</div>';
   h += '<div class="s"></div>';
-  h += '<div class="lbl">Problema</div><div style="font-size:11px;word-break:break-word">' + (r.problema || '-') + '</div>';
+  h += '<div class="lbl">Problema</div><div style="font-size:16px;word-break:break-word">' + (r.problema || '-') + '</div>';
   if (r.pin) {
-    h += '<div class="s"></div><div class="lbl">PIN</div><div class="b" style="font-size:16px;letter-spacing:6px">' + r.pin + '</div>';
+    h += '<div class="s"></div><div class="lbl">PIN</div><div class="b" style="font-size:24px;letter-spacing:6px">' + r.pin + '</div>';
   }
   h += '<div class="s2"></div>';
   h += '<div class="lbl c">Preventivo</div><div class="gc">' + costo + '</div>';
-  if (r.consegna)       h += '<div class="c" style="font-size:11px">Consegna prevista: ' + r.consegna + '</div>';
+  if (r.consegna)       h += '<div class="c" style="font-size:15px">Consegna prevista: ' + r.consegna + '</div>';
   if (r.dataConsegnato) h += '<div class="c b">Consegnato il: ' + r.dataConsegnato + '</div>';
   h += '<div class="s2"></div>';
-  if (r.note) { h += '<div class="lbl">Note</div><div style="font-size:11px;word-break:break-word">' + r.note + '</div><div class="s"></div>'; }
-  h += '<div style="font-size:9px;line-height:1.5">Garanzia 90gg stesso difetto. Non ritirati dopo 30gg: costi custodia.</div>';
+  if (r.note) { h += '<div class="lbl">Note</div><div style="font-size:15px;word-break:break-word">' + r.note + '</div><div class="s"></div>'; }
+  h += '<div style="font-size:12px;line-height:1.4">Garanzia 90gg stesso difetto. Non ritirati dopo 30gg: costi custodia.</div>';
   h += '<div class="s"></div>';
-  h += '<div style="font-size:10px">Firma Cliente:<br><br><br></div>';
-  h += '<div style="border-top:1px solid #000;padding-top:4px;font-size:10px;margin-top:4px">Firma Tecnico:<br><br><br></div>';
+  h += '<div style="font-size:14px">Firma Cliente:<br><br><br></div>';
+  h += '<div style="border-top:1px solid #000;padding-top:4px;font-size:14px;margin-top:4px">Firma Tecnico:<br><br><br></div>';
   h += '<div class="s"></div>';
-  h += '<div class="c" style="font-size:9px">' + SET.nome + (SET.piva ? ' - P.IVA ' + SET.piva : '') + '</div>';
-  h += '<div class="c" style="font-size:9px">Grazie e arrivederci!</div><br><br>';
+  h += '<div class="c" style="font-size:12px">' + SET.nome + (SET.piva ? ' - P.IVA ' + SET.piva : '') + '</div>';
+  h += '<div class="c" style="font-size:13px">Grazie e arrivederci!</div><br><br>';
   var win = window.open('', '_blank', 'width=320,height=700');
   if (!win) { alert('Abilita i popup per stampare'); return; }
   win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>POS</title>' + css + '</head><body>' + h);
@@ -2357,7 +2265,6 @@ function renderMag() {
         + '<button class="btn btn-g btn-sm" style="border-color:#40d080;color:#40d080;margin-right:3px" data-mi="' + i + '" onclick="adjQta(+this.dataset.mi,1)">+</button>'
         + '<button class="btn btn-g btn-sm" style="margin-right:3px" data-mi="' + i + '" onclick="adjQta(+this.dataset.mi,-1)">-</button>'
         + '<button class="btn btn-g btn-sm" style="border-color:#ffaa00;color:#ffaa00;margin-right:3px" data-mi="' + i + '" onclick="modificaMagItem(+this.dataset.mi)">Modif.</button>'
-        + '<button class="btn btn-g btn-sm" style="border-color:#4080ff;color:#4080ff;margin-right:3px" data-mi="' + i + '" onclick="apriAggiungiAListino(+this.dataset.mi)" title="Aggiungi/verifica nel Listino Ufficiale">&#129689;</button>'
         + '<button class="btn btn-d btn-sm" data-mi="' + i + '" onclick="elimMag(+this.dataset.mi)">X</button>'
       + '</td></tr>';
   }
@@ -2366,106 +2273,6 @@ function renderMag() {
 
 function adjQta(i, d) { ML[i].qty = Math.max(0, ML[i].qty + d); salva(); renderMag(); }
 function elimMag(i) { if (!confirm('Eliminare?')) return; ML.splice(i, 1); salva(); renderMag(); }
-
-// ============================================================
-// CORREZIONE PREZZI IN BLOCCO (solo Magazzino - non tocca mai il Listino Ufficiale)
-// ============================================================
-function apriCorrezionePrezzi() {
-  var sel = document.getElementById('cp-cat');
-  var cats = [];
-  for (var i = 0; i < ML.length; i++) { if (cats.indexOf(ML[i].cat) === -1) cats.push(ML[i].cat); }
-  cats.sort();
-  var html = '<option value="">Tutte le categorie</option>';
-  for (var i = 0; i < cats.length; i++) html += '<option value="' + cats[i] + '">' + cats[i] + '</option>';
-  sel.innerHTML = html;
-  document.getElementById('cp-testo').value = '';
-  document.getElementById('cp-soglia').value = '';
-  document.getElementById('cp-valore').value = '';
-  document.getElementById('cp-preview').innerHTML = '';
-  apriM('modal-correzione');
-}
-
-// Trova gli indici ML che rispettano i filtri e calcola il nuovo prezzo per ciascuno, senza applicarlo
-function _calcolaCorrezione() {
-  var catF = document.getElementById('cp-cat').value;
-  var testoF = document.getElementById('cp-testo').value.trim().toLowerCase();
-  var sogliaF = parseFloat(document.getElementById('cp-soglia').value);
-  var azione = document.getElementById('cp-azione').value;
-  var valore = parseFloat(document.getElementById('cp-valore').value);
-  var risultati = [];
-  if (isNaN(valore)) return risultati;
-  for (var i = 0; i < ML.length; i++) {
-    var m = ML[i];
-    if (catF && m.cat !== catF) continue;
-    if (testoF && m.desc.toLowerCase().indexOf(testoF) === -1) continue;
-    if (!isNaN(sogliaF) && m.pven >= sogliaF) continue;
-    var nuovo = m.pven;
-    if (azione === 'percentuale') nuovo = m.pven * (1 + valore / 100);
-    else if (azione === 'margine') { var min = m.pac * (1 + valore / 100); nuovo = Math.max(m.pven, min); }
-    else if (azione === 'fisso') nuovo = m.pven + valore;
-    nuovo = Math.max(0, Math.round(nuovo * 100) / 100);
-    if (nuovo === m.pven) continue;
-    risultati.push({ idx: i, item: m, nuovo: nuovo });
-  }
-  return risultati;
-}
-
-function anteprimaCorrezionePrezzi() {
-  var risultati = _calcolaCorrezione();
-  var box = document.getElementById('cp-preview');
-  if (!risultati.length) { box.innerHTML = '<div class="alert alert-w">Nessun articolo corrisponde ai filtri, oppure il prezzo non cambierebbe.</div>'; return; }
-  var html = '<div style="max-height:260px;overflow:auto;border:1px solid #222;border-radius:8px;margin-bottom:12px">';
-  html += '<table><thead><tr><th>Descrizione</th><th>P.Vend attuale</th><th>P.Vend nuovo</th></tr></thead><tbody>';
-  for (var i = 0; i < risultati.length; i++) {
-    var r = risultati[i];
-    html += '<tr><td>' + r.item.desc + '</td><td>EUR ' + r.item.pven.toFixed(2) + '</td><td style="color:#40d080;font-weight:700">EUR ' + r.nuovo.toFixed(2) + '</td></tr>';
-  }
-  html += '</tbody></table></div>';
-  html += '<button class="btn btn-p" style="width:100%" onclick="applicaCorrezionePrezzi()">&#9989; Applica a ' + risultati.length + ' articolo/i</button>';
-  box.innerHTML = html;
-}
-
-function applicaCorrezionePrezzi() {
-  var risultati = _calcolaCorrezione();
-  if (!risultati.length) return;
-  if (!confirm('Confermi la modifica del P.Vend su ' + risultati.length + ' articolo/i di Magazzino? Il Listino Ufficiale non viene toccato.')) return;
-  for (var i = 0; i < risultati.length; i++) { ML[risultati[i].idx].pven = risultati[i].nuovo; }
-  salva();
-  renderMag();
-  chiudiM('modal-correzione');
-  showToast('Prezzi aggiornati', risultati.length + ' articolo/i corretti in Magazzino');
-}
-
-// ============================================================
-// AGGIUNGI A LISTINO UFFICIALE (salvato separatamente, il Listino base non si tocca mai)
-// ============================================================
-var _laFromIdx = null;
-function apriAggiungiAListino(i) {
-  var m = ML[i];
-  if (!m) return;
-  _laFromIdx = i;
-  document.getElementById('la-brand').value = '';
-  document.getElementById('la-model').value = m.desc;
-  document.getElementById('la-cat').value = m.cat;
-  document.getElementById('la-tipo').value = m.tipo || 'Originale';
-  document.getElementById('la-pac').value = m.pac;
-  document.getElementById('la-pven').value = m.pven;
-  apriM('modal-listino-add');
-}
-
-function salvaAggiuntaListino() {
-  var brand = document.getElementById('la-brand').value.trim();
-  var model = document.getElementById('la-model').value.trim();
-  var cat = document.getElementById('la-cat').value.trim();
-  var tipo = document.getElementById('la-tipo').value;
-  var pac = parseFloat(document.getElementById('la-pac').value) || 0;
-  var pven = parseFloat(document.getElementById('la-pven').value) || 0;
-  if (!brand || !model || !cat) { alert('Marca, modello e categoria sono obbligatori'); return; }
-  CATALOGO_EXTRA.push({ brand: brand, model: model, cat: cat, tipo: tipo, pac: pac, pven: pven });
-  salva();
-  chiudiM('modal-listino-add');
-  showToast('Aggiunto al Listino', brand + ' - ' + model);
-}
 
 // ============================================================
 // CATALOGO RICAMBI (listino di riferimento -> import in Magazzino)
@@ -2477,15 +2284,13 @@ function popolaFiltriCatalogo() {
   var catSel = document.getElementById('cat-cat');
   if (brandSel.options.length <= 1) {
     var brands = [];
-    var _cAll1 = CATALOGO_ALL();
-    for (var i = 0; i < _cAll1.length; i++) { if (brands.indexOf(_cAll1[i].brand) === -1) brands.push(_cAll1[i].brand); }
+    for (var i = 0; i < CATALOGO.length; i++) { if (brands.indexOf(CATALOGO[i].brand) === -1) brands.push(CATALOGO[i].brand); }
     brands.sort();
     for (var i = 0; i < brands.length; i++) brandSel.innerHTML += '<option value="' + brands[i] + '">' + brands[i] + '</option>';
   }
   if (catSel.options.length <= 1) {
     var cats = [];
-    var _cAll2 = CATALOGO_ALL();
-    for (var i = 0; i < _cAll2.length; i++) { if (cats.indexOf(_cAll2[i].cat) === -1) cats.push(_cAll2[i].cat); }
+    for (var i = 0; i < CATALOGO.length; i++) { if (cats.indexOf(CATALOGO[i].cat) === -1) cats.push(CATALOGO[i].cat); }
     cats.sort();
     for (var i = 0; i < cats.length; i++) catSel.innerHTML += '<option value="' + cats[i] + '">' + cats[i] + '</option>';
   }
@@ -2497,7 +2302,7 @@ function renderCatalogo() {
   var cat   = document.getElementById('cat-cat').value;
   var tipo  = (document.getElementById('cat-tipo') || {}).value || '';
   var q     = document.getElementById('cat-q').value.trim().toLowerCase();
-  var list  = CATALOGO_ALL().filter(function(c) {
+  var list  = CATALOGO.filter(function(c) {
     if (brand && c.brand !== brand) return false;
     if (cat   && c.cat   !== cat)   return false;
     if (tipo  && c.tipo  !== tipo)  return false;
@@ -2550,56 +2355,9 @@ var SINONIMI_PROBLEMA = [
   { cat: 'Altro', kw: ['tastiera', 'trackpad', 'ventola', 'surriscalda', 'rumore', 'cerniera', 'ram', 'ssd', 'alimentatore', 'caricabatterie'] }
 ];
 
-// ============================================================
-// AVVISI TECNICI - note di rischio/compatibilita' da mostrare nel preventivo
-// match: parole (in minuscolo) che devono comparire TUTTE nel modello scritto dall'utente
-// categoria: deve combaciare con la categoria del problema (null = qualsiasi)
-// tipo: 'Originale' | 'Compatibile' | null (null = vale per entrambi)
-// livello: 'warn' (arancio, rischio/attenzione) | 'info' (blu, informativo)
-// Aggiungine quante vuoi seguendo lo stesso schema.
-// ============================================================
-var AVVISI_TECNICI = [
-  { match: ['samsung', 'a25'], categoria: 'Schermo', tipo: null, livello: 'warn',
-    testo: 'Back cover incollata al frame: in apertura la vernice puo\' scheggiarsi/staccarsi sui bordi. Valuta di preventivare anche la back cover o avvisa il cliente prima di iniziare.' },
-  { match: ['samsung', 'a54'], categoria: 'Schermo', tipo: null, livello: 'warn',
-    testo: 'Scocca incollata: rischio scheggiature vernice in apertura, soprattutto su colori scuri. Verifica con il cliente prima del lavoro.' },
-  { match: ['samsung', 'a34'], categoria: 'Schermo', tipo: null, livello: 'warn',
-    testo: 'Come altri A-series, la back cover puo\' segnarsi in fase di apertura: informane il cliente in anticipo.' },
-  { match: ['iphone'], categoria: 'Batteria', tipo: 'Compatibile', livello: 'info',
-    testo: 'Con batteria non originale iOS mostra "Stato Batteria Sconosciuto" in Impostazioni > Batteria (percentuale salute non disponibile). Nessun impatto sul funzionamento, ma va segnalato al cliente.' },
-  { match: ['iphone'], categoria: 'Fotocamera', tipo: 'Compatibile', livello: 'warn',
-    testo: 'Fotocamera non originale non programmata: possibile avviso "Fotocamera non originale" e in alcuni modelli dominante gialla nelle foto finche\' non si esegue la programmazione.' },
-  { match: ['iphone'], categoria: 'Schermo', tipo: 'Compatibile', livello: 'info',
-    testo: 'Schermo compatibile: True Tone puo\' disattivarsi e comparire "Parte non originale" in Impostazioni. Su iPhone con Face ID, testa sempre il riconoscimento dopo il rimontaggio: il flat del sensore va maneggiato con cura.' },
-  { match: ['iphone'], categoria: 'Schermo', tipo: 'Originale', livello: 'info',
-    testo: 'Anche con schermo originale ricondizionato, testa Face ID e True Tone prima della riconsegna: un flat riposizionato male e\' la causa piu\' comune di malfunzionamento.' },
-  { match: ['xiaomi'], categoria: 'Schermo', tipo: 'Compatibile', livello: 'warn',
-    testo: 'Verifica se il pannello originale e\' AMOLED: molti compatibili sono LCD incell e possono dare instabilita\' touch/sleep-wake. Preferisci ricambio Incell certificato o avvisa il cliente della differenza.' },
-  { match: ['redmi'], categoria: 'Schermo', tipo: 'Compatibile', livello: 'warn',
-    testo: 'Verifica se il pannello originale e\' AMOLED: molti compatibili sono LCD incell e possono dare instabilita\' touch/sleep-wake. Preferisci ricambio Incell certificato o avvisa il cliente della differenza.' },
-  { match: ['ipad'], categoria: 'Schermo', tipo: null, livello: 'warn',
-    testo: 'Vetro e digitizer spesso separati dall\'LCD: dopo il rimontaggio verifica calibrazione touch su tutti i bordi prima della riconsegna.' },
-  { match: ['nintendo', 'switch'], categoria: 'Schermo', tipo: null, livello: 'warn',
-    testo: 'Su unita\' con firmware aggiornato/patchate valuta lo swap della daughter board se il digitizer non calibra correttamente dopo il montaggio.' }
-];
-
-// Cerca gli avvisi tecnici pertinenti per device + categoria + tipo ricambio (tipo=null negli avvisi vale per entrambi)
-function trovaAvvisi(deviceTokens, categoria, tipo) {
-  var out = [];
-  for (var i = 0; i < AVVISI_TECNICI.length; i++) {
-    var a = AVVISI_TECNICI[i];
-    if (a.categoria && a.categoria !== categoria) continue;
-    if (a.tipo && a.tipo !== tipo) continue;
-    var ok = a.match.every(function(m) { return deviceTokens.indexOf(m) !== -1; });
-    if (ok) out.push(a);
-  }
-  return out;
-}
-
 function trovaCategoriaProblema(testo) {
   var t = testo.toLowerCase();
   var best = null, bestLen = 0;
-
   for (var i = 0; i < SINONIMI_PROBLEMA.length; i++) {
     var s = SINONIMI_PROBLEMA[i];
     for (var k = 0; k < s.kw.length; k++) {
@@ -2619,9 +2377,8 @@ function tokenizza(s) {
 function trovaArticoloMigliore(deviceTokens, categoria, problemaTokens, tipo) {
   // Cerca nel Listino per il tipo richiesto
   var candidatiListino = [];
-  var _cAllM = CATALOGO_ALL();
-  for (var i = 0; i < _cAllM.length; i++) {
-    var c = _cAllM[i];
+  for (var i = 0; i < CATALOGO.length; i++) {
+    var c = CATALOGO[i];
     if (categoria && c.cat !== categoria) continue;
     if (tipo && c.tipo !== tipo) continue;
     var itemTok = tokenizza(c.brand + ' ' + c.model);
@@ -2707,9 +2464,7 @@ function generaPreventivo() {
     var manodopera = manodoperaPerCategoria(cat || 'Altro');
     var matchOrig = trovaArticoloMigliore(deviceTokens, cat, problemaTokens, 'Originale');
     var matchComp = trovaArticoloMigliore(deviceTokens, cat, problemaTokens, 'Compatibile');
-    var voce = { problema: riga, categoria: cat, manodopera: manodopera, orig: null, comp: null,
-                 avvisiOrig: trovaAvvisi(deviceTokens, cat, 'Originale'),
-                 avvisiComp: trovaAvvisi(deviceTokens, cat, 'Compatibile') };
+    var voce = { problema: riga, categoria: cat, manodopera: manodopera, orig: null, comp: null };
     if (matchOrig) {
       voce.orig = { desc: matchOrig.src === 'magazzino' ? matchOrig.item.desc : (matchOrig.item.brand + ' - ' + matchOrig.item.model), prezzo: matchOrig.item.pven, fonte: matchOrig.src, approssimato: !matchOrig.esatto, disponibile: matchOrig.src === 'magazzino' ? matchOrig.item.qty : null };
       totOrig.pezzi += matchOrig.item.pven;
@@ -2726,22 +2481,11 @@ function generaPreventivo() {
   renderPreventivo();
 }
 
-function _voceSide(m, manodopera, avvisi) {
-  var avvisiHtml = '';
-  if (avvisi && avvisi.length) {
-    for (var j = 0; j < avvisi.length; j++) {
-      var a = avvisi[j];
-      var isWarn = a.livello === 'warn';
-      var col = isWarn ? '#ffaa00' : '#4080ff';
-      var bg = isWarn ? 'rgba(255,170,0,.08)' : 'rgba(64,128,255,.08)';
-      var ic = isWarn ? '&#9888;' : '&#8505;';
-      avvisiHtml += '<div style="margin-top:6px;padding:7px 9px;border-radius:8px;background:' + bg + ';border:1px solid ' + col + '33;font-size:11px;line-height:1.4;color:' + col + '">' + ic + ' ' + a.testo + '</div>';
-    }
-  }
-  if (!m) return '<div style="color:#555;font-size:12px">—</div><div style="color:#555;font-size:12px">Nessun ricambio trovato</div>' + avvisiHtml;
+function _voceSide(m, manodopera) {
+  if (!m) return '<div style="color:#555;font-size:12px">—</div><div style="color:#555;font-size:12px">Nessun ricambio trovato</div>';
   var fonte = m.fonte === 'magazzino' ? '<span style="color:#40d080">&#8226; Magazzino (disp. ' + m.disponibile + ')</span>' : '<span style="color:#4080ff">&#8226; Listino</span>';
   var warn = m.approssimato ? '<div style="font-size:10px;color:#ffaa00">&#9888; verifica modello</div>' : '';
-  return '<div style="font-size:12px;color:#aaa">' + m.desc + ' ' + fonte + '</div>' + warn + '<div style="font-weight:700;color:#ff5500;margin-top:4px">EUR ' + (m.prezzo + manodopera).toFixed(2) + ' <span style="font-weight:400;font-size:11px;color:#555">(pezzo EUR ' + m.prezzo.toFixed(2) + ' + EUR ' + manodopera.toFixed(2) + ' man.)</span></div>' + avvisiHtml;
+  return '<div style="font-size:12px;color:#aaa">' + m.desc + ' ' + fonte + '</div>' + warn + '<div style="font-weight:700;color:#ff5500;margin-top:4px">EUR ' + (m.prezzo + manodopera).toFixed(2) + ' <span style="font-weight:400;font-size:11px;color:#555">(pezzo EUR ' + m.prezzo.toFixed(2) + ' + EUR ' + manodopera.toFixed(2) + ' man.)</span></div>';
 }
 
 function renderPreventivo() {
@@ -2756,7 +2500,7 @@ function renderPreventivo() {
   html += '<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#4080ff;font-weight:700;margin-bottom:12px">&#11088; Ricambi Originali</div>';
   for (var i = 0; i < p.voci.length; i++) {
     var v = p.voci[i];
-    html += '<div style="padding:10px 0;border-bottom:1px solid #1e1e1e"><div style="font-weight:600;margin-bottom:4px">' + v.problema + '</div>' + _voceSide(v.orig, v.manodopera, v.avvisiOrig) + '</div>';
+    html += '<div style="padding:10px 0;border-bottom:1px solid #1e1e1e"><div style="font-weight:600;margin-bottom:4px">' + v.problema + '</div>' + _voceSide(v.orig, v.manodopera) + '</div>';
   }
   html += '<div style="padding-top:14px;display:flex;justify-content:space-between;align-items:center"><div style="font-size:11px;color:#555">Pezzi: EUR ' + p.totOrig.pezzi.toFixed(2) + ' • Man.: EUR ' + p.totOrig.manodopera.toFixed(2) + '</div><div style="font-size:20px;font-weight:800;color:#4080ff">EUR ' + p.totOrig.totale.toFixed(2) + '</div></div>';
   html += '<button class="btn btn-g" style="margin-top:12px;width:100%;border-color:#4080ff;color:#4080ff" onclick="usaPreventivo(\'orig\')">Usa Preventivo Originale &#8594;</button>';
@@ -2767,7 +2511,7 @@ function renderPreventivo() {
   html += '<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#40c080;font-weight:700;margin-bottom:12px">&#9989; Ricambi Compatibili</div>';
   for (var i = 0; i < p.voci.length; i++) {
     var v = p.voci[i];
-    html += '<div style="padding:10px 0;border-bottom:1px solid #1e1e1e"><div style="font-weight:600;margin-bottom:4px">' + v.problema + '</div>' + _voceSide(v.comp, v.manodopera, v.avvisiComp) + '</div>';
+    html += '<div style="padding:10px 0;border-bottom:1px solid #1e1e1e"><div style="font-weight:600;margin-bottom:4px">' + v.problema + '</div>' + _voceSide(v.comp, v.manodopera) + '</div>';
   }
   html += '<div style="padding-top:14px;display:flex;justify-content:space-between;align-items:center"><div style="font-size:11px;color:#555">Pezzi: EUR ' + p.totComp.pezzi.toFixed(2) + ' • Man.: EUR ' + p.totComp.manodopera.toFixed(2) + '</div><div style="font-size:20px;font-weight:800;color:#40c080">EUR ' + p.totComp.totale.toFixed(2) + '</div></div>';
   html += '<button class="btn btn-g" style="margin-top:12px;width:100%;border-color:#40c080;color:#40c080" onclick="usaPreventivo(\'comp\')">Usa Preventivo Compatibile &#8594;</button>';
@@ -2785,21 +2529,13 @@ function usaPreventivo(tipo) {
   var problemaTesto = p.voci.map(function(v) { return v.problema; }).join(', ');
   var noteRighe = p.voci.map(function(v) {
     var m = tipo === 'orig' ? v.orig : v.comp;
-    var avvisi = tipo === 'orig' ? v.avvisiOrig : v.avvisiComp;
-    var riga = '- ' + v.problema + ': ' + (m ? m.desc + ' (EUR ' + m.prezzo.toFixed(2) + ')' : 'pezzo non trovato') + ' + EUR ' + v.manodopera.toFixed(2) + ' man.';
-    if (avvisi && avvisi.length) {
-      riga += avvisi.map(function(a) { return '\n  ' + (a.livello === 'warn' ? '\u26a0' : '\u2139') + ' ' + a.testo; }).join('');
-    }
-    return riga;
+    return '- ' + v.problema + ': ' + (m ? m.desc + ' (EUR ' + m.prezzo.toFixed(2) + ')' : 'pezzo non trovato') + ' + EUR ' + v.manodopera.toFixed(2) + ' man.';
   });
   mostraModaleR();
   setTimeout(function() {
     document.getElementById('nr-device').value = p.device;
     document.getElementById('nr-problema').value = problemaTesto;
     document.getElementById('nr-costo').value = tot.totale.toFixed(2);
-    var bd = document.getElementById('nr-costo-breakdown');
-    bd.textContent = 'Pezzi EUR ' + tot.pezzi.toFixed(2) + ' + Manodopera EUR ' + tot.manodopera.toFixed(2) + ' = EUR ' + tot.totale.toFixed(2);
-    bd.style.display = 'block';
     document.getElementById('nr-note').value = 'Preventivo ' + (tipo === 'orig' ? 'Originale' : 'Compatibile') + ' generato dall\'Assistente:\n' + noteRighe.join('\n');
   }, 80);
 }
