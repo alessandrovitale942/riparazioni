@@ -676,6 +676,12 @@ textarea.inp { resize: vertical; min-height: 65px; }
     <div class="modal-b"><div id="scheda-body"></div></div>
     <div class="modal-ft">
       <button class="btn btn-g" onclick="chiudiM('modal-s')">Chiudi</button>
+      <select class="inp" id="pos-size" title="Grandezza testo scontrino POS" style="width:auto;padding:7px 8px;font-size:12px" onchange="try{localStorage.setItem('rp_possize',this.value)}catch(e){}">
+        <option value="22">Testo grande</option>
+        <option value="26">Testo extra grande</option>
+        <option value="30">Testo gigante</option>
+      </select>
+      <script>try{var _ps=localStorage.getItem('rp_possize');if(_ps)document.getElementById('pos-size').value=_ps;}catch(e){}</script>
       <button class="btn btn-g" style="border-color:#40d080;color:#40d080" onclick="stampaPOS()">&#128438; POS 80mm</button>
       <button class="btn btn-p" onclick="stampaScheda()">&#128438; Stampa A4</button>
     </div>
@@ -1882,43 +1888,61 @@ function stampaPOS() {
   var costo = r.costo ? 'EUR ' + parseFloat(r.costo).toFixed(2) : 'Da definire';
   var data  = new Date().toLocaleDateString('it-IT');
   var ora   = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-  var css = '<style>*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}body{font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:16px;font-weight:700;line-height:1.3;width:72mm;background:white;color:#000;-webkit-text-stroke:0.3px #000}@page{margin:3mm;size:80mm auto}.c{text-align:center}.b{font-weight:900}.g{font-size:22px;font-weight:900}.s{border-top:2px dashed #000;margin:7px 0}.s2{border-top:3px solid #000;margin:7px 0}.r{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2px 8px;margin:3px 0}.lbl{color:#000;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}.gc{font-size:30px;font-weight:900;text-align:center;margin:8px 0;letter-spacing:1px}</style>';
+  // grandezza base del testo (px): scelta dal selettore accanto al pulsante POS (default 22)
+  var selSz = document.getElementById('pos-size');
+  var B = selSz ? parseInt(selSz.value, 10) : 22;
+  if (!B || B < 16) B = 22;
+  // NB: tutte le misure sono in "em" rispetto a B, cosi cambia tutto in proporzione.
+  // Layout fluido (nessuna larghezza fissa): il driver/browser non deve rimpicciolire per farlo entrare.
+  var css = '<style>'
+    + '*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}'
+    + 'html,body{width:100%}'
+    + 'body{font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:' + B + 'px;font-weight:700;line-height:1.25;background:#fff;color:#000;overflow-wrap:anywhere;word-break:break-word}'
+    + '@page{margin:3mm;size:80mm auto}'
+    + '.c{text-align:center}.b{font-weight:900}'
+    + '.g{font-size:1.35em;font-weight:900;line-height:1.15}'
+    + '.s{border-top:2px dashed #000;margin:.35em 0}'
+    + '.s2{border-top:4px solid #000;margin:.35em 0}'
+    + '.r{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2px .5em;margin:.15em 0}'
+    + '.lbl{color:#000;font-size:.75em;font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-top:.1em}'
+    + '.gc{font-size:1.7em;font-weight:900;text-align:center;margin:.25em 0}'
+    + '</style>';
   var h = '';
   h += '<div class="c g">' + SET.nome + '</div>';
-  if (SET.slogan) h += '<div class="c" style="font-size:14px">' + SET.slogan + '</div>';
-  if (SET.ind)    h += '<div class="c" style="font-size:14px">' + SET.ind + '</div>';
-  if (SET.tel)    h += '<div class="c" style="font-size:15px">Tel: ' + SET.tel + '</div>';
+  if (SET.slogan) h += '<div class="c" style="font-size:.85em">' + SET.slogan + '</div>';
+  if (SET.ind)    h += '<div class="c" style="font-size:.85em">' + SET.ind + '</div>';
+  if (SET.tel)    h += '<div class="c" style="font-size:.9em">Tel: ' + SET.tel + '</div>';
   h += '<div class="s2"></div>';
   h += '<div class="r"><span class="b">SCHEDA #' + String(r.id).padStart(4, '0') + '</span><span>' + data + ' ' + ora + '</span></div>';
   h += '<div class="s"></div>';
-  h += '<div class="lbl">Cliente</div><div class="b" style="font-size:19px">' + (r.nome || '-') + '</div>';
+  h += '<div class="lbl">Cliente</div><div class="b" style="font-size:1.15em">' + (r.nome || '-') + '</div>';
   if (r.tel)   h += '<div>Tel: ' + r.tel + '</div>';
-  if (r.email) h += '<div>' + r.email + '</div>';
+  if (r.email) h += '<div style="font-size:.85em">' + r.email + '</div>';
   h += '<div class="s"></div>';
   h += '<div class="lbl">Dispositivo</div><div class="b">' + (r.device || '-') + '</div>';
-  if (r.imei) h += '<div style="font-size:14px">IMEI: ' + r.imei + '</div>';
+  if (r.imei) h += '<div style="font-size:.85em">IMEI: ' + r.imei + '</div>';
   if (r.tipo) h += '<div>Intervento: ' + r.tipo + '</div>';
   h += '<div class="s"></div>';
-  h += '<div class="lbl">Problema</div><div style="font-size:16px;word-break:break-word">' + (r.problema || '-') + '</div>';
+  h += '<div class="lbl">Problema</div><div>' + (r.problema || '-') + '</div>';
   if (r.pin) {
-    h += '<div class="s"></div><div class="lbl">PIN</div><div class="b" style="font-size:24px;letter-spacing:6px">' + r.pin + '</div>';
+    h += '<div class="s"></div><div class="lbl">PIN</div><div class="b" style="font-size:1.5em;letter-spacing:.15em">' + r.pin + '</div>';
   }
   h += '<div class="s2"></div>';
   h += '<div class="lbl c">Preventivo</div><div class="gc">' + costo + '</div>';
-  if (r.consegna)       h += '<div class="c" style="font-size:15px">Consegna prevista: ' + r.consegna + '</div>';
+  if (r.consegna)       h += '<div class="c" style="font-size:.9em">Consegna prevista: ' + r.consegna + '</div>';
   if (r.dataConsegnato) h += '<div class="c b">Consegnato il: ' + r.dataConsegnato + '</div>';
   h += '<div class="s2"></div>';
-  if (r.note) { h += '<div class="lbl">Note</div><div style="font-size:15px;word-break:break-word">' + r.note + '</div><div class="s"></div>'; }
-  h += '<div style="font-size:12px;line-height:1.4">Garanzia 90gg stesso difetto. Non ritirati dopo 30gg: costi custodia.</div>';
+  if (r.note) { h += '<div class="lbl">Note</div><div>' + r.note + '</div><div class="s"></div>'; }
+  h += '<div style="font-size:.7em;line-height:1.35">Garanzia 90gg stesso difetto. Non ritirati dopo 30gg: costi custodia.</div>';
   h += '<div class="s"></div>';
-  h += '<div style="font-size:14px">Firma Cliente:<br><br><br></div>';
-  h += '<div style="border-top:1px solid #000;padding-top:4px;font-size:14px;margin-top:4px">Firma Tecnico:<br><br><br></div>';
+  h += '<div style="font-size:.85em">Firma Cliente:<br><br><br></div>';
+  h += '<div style="border-top:2px solid #000;padding-top:4px;font-size:.85em;margin-top:4px">Firma Tecnico:<br><br><br></div>';
   h += '<div class="s"></div>';
-  h += '<div class="c" style="font-size:12px">' + SET.nome + (SET.piva ? ' - P.IVA ' + SET.piva : '') + '</div>';
-  h += '<div class="c" style="font-size:13px">Grazie e arrivederci!</div><br><br>';
-  var win = window.open('', '_blank', 'width=320,height=700');
+  h += '<div class="c" style="font-size:.7em">' + SET.nome + (SET.piva ? ' - P.IVA ' + SET.piva : '') + '</div>';
+  h += '<div class="c" style="font-size:.75em">Grazie e arrivederci!</div><br><br>';
+  var win = window.open('', '_blank', 'width=420,height=700');
   if (!win) { alert('Abilita i popup per stampare'); return; }
-  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>POS</title>' + css + '</head><body>' + h);
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>POS</title>' + css + '</head><body>' + h);
   win.document.write('<scri' + 'pt>window.onload=function(){window.print();setTimeout(function(){window.close();},800);};</' + 'scri' + 'pt>');
   win.document.write('</body></html>');
   win.document.close();
